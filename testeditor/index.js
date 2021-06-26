@@ -14,6 +14,10 @@ let openedFilePath = "";
 
 let lastItemRightclicked;
 
+if (!fs.existsSync("./classes")){
+    fs.mkdirSync("./classes");
+}
+
   window.addEventListener("click",function(){
 	document.getElementById("context-menu").classList.remove("active");
   });
