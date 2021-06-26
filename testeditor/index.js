@@ -24,6 +24,7 @@ const textElem = document.getElementById("texthere");
 // context menu
 
 document.getElementById('delete').addEventListener('click', () => {
+	console.log("dafsdfasdf");
 	if(isClass === true) {
 		fs.rmdirSync(currentFilePath, { recursive: true });
 	} else {
