@@ -35,6 +35,6 @@ app.whenReady().then(() => {
 });
 
 app.on('window-all-closed', function () {
-    app.quit();
     win.webContents.send("saveFile");
+    app.quit();
 });

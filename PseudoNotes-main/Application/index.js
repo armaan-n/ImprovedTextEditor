@@ -229,7 +229,7 @@ document.addEventListener("keyup", function(event) {
 	const popup = document.getElementById("popup");
     if (event.keyCode === 13 & popup.classList.contains('active')) {
 		const createClass = document.getElementById("poparea").value;
-		if(isrename === true) {
+		if (isrename === true) {
 			console.log(currentFilePath);
 
 			if (isClass === true) {
@@ -243,12 +243,11 @@ document.addEventListener("keyup", function(event) {
 				lastItemRightclicked.innerHTML = createClass;
 			}
 
-			
 			console.log(currentFilePath);
 			isrename = false;
 			
 			closePopup(popup);
-		} else if(isClass === true) {
+		} else if (isClass === true) {
 			console.log(isClass);
 			try {
 				fs.mkdirSync("./classes/" + createClass);
@@ -260,7 +259,7 @@ document.addEventListener("keyup", function(event) {
 
 				//when class is right clicked
 
-				button.addEventListener("contextmenu",function(event){
+				button.addEventListener("contextmenu", function(event){
 					event.preventDefault();
 					lastItemRightclicked = button;
 					currentFilePath = "./classes/" + button.innerHTML;
@@ -269,7 +268,7 @@ document.addEventListener("keyup", function(event) {
 					contextElement.style.top = event.clientY + "px";
 					contextElement.style.left = event.clientX + "px";
 					contextElement.classList.add("active");
-				  });
+				});
 
 				//when class is clicked
 				button.addEventListener('click', () => {
@@ -366,6 +365,18 @@ document.addEventListener("keyup", function(event) {
 				button.className = "note";
 				button.innerHTML = createClass;
 				filebar.appendChild(button);
+				
+				if (currentFilePath != "") {
+					const valueOfTexthere = textElem.innerHTML;
+					console.log(currentFilePath + "777" + valueOfTexthere);
+					fs.writeFileSync(currentFilePath, valueOfTexthere, "utf-8");
+				}
+				currentFilePath = "./classes/" + currFold + "/" + createClass + ".docx";
+				console.log("./classes/" + currFold + "/" + createClass);
+				textElem.innerHTML = "";
+				openedFilePath = "./classes/" + currFold + "/" + createClass + ".docx";
+				textElem.innerHTML = fs.readFileSync("./classes/" + currFold + "/" + createClass + ".docx", "utf8");
+
 
 				//when right click menu
 				button.addEventListener("contextmenu",function(event){
@@ -381,7 +392,7 @@ document.addEventListener("keyup", function(event) {
 
 				//when click file
 				button.addEventListener("click", () => {
-					if(currentFilePath != "") {
+					if (currentFilePath != "") {
 						const valueOfTexthere = textElem.innerHTML;
 						console.log(currentFilePath + "777" + valueOfTexthere);
 						fs.writeFileSync(currentFilePath, valueOfTexthere, "utf-8");
