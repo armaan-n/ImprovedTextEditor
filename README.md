@@ -12,4 +12,4 @@ Download the source code as a zip or clone the repositor to your local system
 Within the terminal, enter the "Application" directory locatated within 
 "PseudoNotes-main"
 
-Type out the command `nmp start` and enjoy.
+Type out the command `npm start` and enjoy.
