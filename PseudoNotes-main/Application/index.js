@@ -83,27 +83,32 @@ function generate() {
 		openPopup(popup);
 	});
 
+	// set HTML element class id and inner HTML
 	newClass.id = "new_class";
-
 	newClass.innerHTML = "New Class +";
 
 	filebar.appendChild(newClass);
 
+	// read directory classes
 	fs.readdir('./classes/', (err, files) => {
 		files.forEach(file => {
 	  
+			// append button to file bar
 		  let button = document.createElement("button");
 		  button.className = "class";
 		  button.innerHTML = file;
 		  filebar.appendChild(button);
 	  
 		  //when class is right clicked
-
 		  button.addEventListener("contextmenu", function(event) {
+			  // prevent closing
 			event.preventDefault();
 			lastItemRightclicked = button;
+			  
+			  // set file path for saving
 			currentFilePath = "./classes/" + lastItemRightclicked.innerHTML;
 			console.log(currentFilePath);
+			  // get context menu element
 			var contextElement = document.getElementById("context-menu");
 			contextElement.style.top = event.clientY + "px";
 			contextElement.style.left = event.clientX + "px";
@@ -115,6 +120,7 @@ function generate() {
 		  button.addEventListener('click', () => {
 			const valueOfTexthere = textElem.innerHTML;
 			if (openedFilePath != "") {
+				// write contents on screen to file
 				fs.writeFileSync(openedFilePath, valueOfTexthere, "utf-8");
 			}
 
@@ -182,8 +188,10 @@ function generate() {
 									console.log(valueOfTexthere + "777" + currentFilePath);
 									fs.writeFileSync(currentFilePath, valueOfTexthere, "utf-8");
 								}
+								// set current file path to clicked file
 								currentFilePath = "./classes/" + currFold + "/" + file1;
 							  	console.log("./classes/" + currFold + "/" + file1);
+								// clear text field
 							  	textElem.innerHTML = "";
 							  	textElem.innerHTML = fs.readFileSync("./classes/" + currFold + "/" + file1, "utf8");
 								openedFilePath = "./classes/" + currFold + "/" + file1;
@@ -233,8 +241,10 @@ document.addEventListener("keyup", function(event) {
 			console.log(currentFilePath);
 
 			if (isClass === true) {
+				// rename file
 				fs.renameSync(currentFilePath, currentFilePath.substring(0, currentFilePath.lastIndexOf("/") + 1) + createClass);
 				currentFilePath = currentFilePath.substring(0, currentFilePath.lastIndexOf("/") + 1) + createClass;
+				// get the item that was last clicked
 				lastItemRightclicked.innerHTML = createClass;
 				currFold = lastItemRightclicked.innerHTML;
 			} else {
@@ -295,7 +305,8 @@ document.addEventListener("keyup", function(event) {
 						const popup = document.getElementById("popup");
 						openPopup(popup);
 					});
-
+					
+					// when the back button is clicked
 					back1.addEventListener("click", () => {
 						const valueOfTexthere = textElem.innerHTML;
 						if (openedFilePath != "") {
@@ -320,6 +331,8 @@ document.addEventListener("keyup", function(event) {
 									//when file is right clicked
 									button.addEventListener("contextmenu",function(event){
 										event.preventDefault();
+										
+										// set element tracker and file path
 										lastItemRightclicked = button;
 										currentFilePath = "./classes/" + currFold + "/" + button.innerHTML;
 										console.log(currentFilePath);
@@ -336,6 +349,7 @@ document.addEventListener("keyup", function(event) {
 											console.log(currentFilePath + "777" + valueOfTexthere);
 											fs.writeFileSync(currentFilePath, valueOfTexthere, "utf-8");
 										}
+										// set current file path to the current docment
 										currentFilePath = "./classes/" + currFold + "/" + file + ".docx";
 										textElem.innerHTML = "";
 										openedFilePath = "./classes/" + currFold + "/" + file;
@@ -367,10 +381,12 @@ document.addEventListener("keyup", function(event) {
 				filebar.appendChild(button);
 				
 				if (currentFilePath != "") {
+					// write to file (save)
 					const valueOfTexthere = textElem.innerHTML;
 					console.log(currentFilePath + "777" + valueOfTexthere);
 					fs.writeFileSync(currentFilePath, valueOfTexthere, "utf-8");
 				}
+				// set current file path
 				currentFilePath = "./classes/" + currFold + "/" + createClass + ".docx";
 				console.log("./classes/" + currFold + "/" + createClass);
 				textElem.innerHTML = "";
